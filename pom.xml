@@ -5,6 +5,8 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>shop-utils</module>
+		<module>shop-bean</module>
+		<module>shop-user</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -12,24 +14,26 @@
 		<version>2.6.13</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>io.learn</groupId>
+	<groupId>io.learn.shop</groupId>
 	<artifactId>shop</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>shop</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 		<java.version>17</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
 		<spring-cloud-alibaba.version>2.1.0.RELEASE</spring-cloud-alibaba.version>
-		<logback.version>1.4.4</logback.version>
-		<slf4j.version>2.0.3</slf4j.version>
+		<logback.version>1.1.7</logback.version>
+		<slf4j.version>1.7.21</slf4j.version>
 		<common.logging>1.2</common.logging>
-		<fastjson.version>2.0.15</fastjson.version>
+		<fastjson.version>2.0.16</fastjson.version>
 		<mybatis.version>3.4.6</mybatis.version>
 		<mybatis.plus.version>3.5.2</mybatis.plus.version>
 		<mysql.jdbc.version>8.0.30</mysql.jdbc.version>
-		<druid.version>1.2.13</druid.version>
+		<druid.version>1.2.14</druid.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
