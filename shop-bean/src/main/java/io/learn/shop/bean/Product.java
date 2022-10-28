@@ -46,7 +46,7 @@ public class Product implements Serializable {
      * product stock
      */
     @TableField("t_product_stock")
-    private Integer proStock;
+    private Integer productStock;
 
     public Product() {
         this.id = SnowFlakeFactory.getSnowFlakeCache().nextId();

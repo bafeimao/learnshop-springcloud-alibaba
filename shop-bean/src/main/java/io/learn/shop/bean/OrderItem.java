@@ -47,7 +47,7 @@ public class OrderItem implements Serializable {
      * productName
      */
     @TableField("t_product_name")
-    private Long productName;
+    private String productName;
 
     /**
      * product price

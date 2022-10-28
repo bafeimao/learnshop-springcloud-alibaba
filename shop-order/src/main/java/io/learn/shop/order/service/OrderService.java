@@ -1,5 +1,6 @@
 package io.learn.shop.order.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.learn.shop.params.OrderParams;
 
 /**
@@ -16,7 +17,7 @@ public interface OrderService {
      * save order
      * @param orderParams
      */
-    void saveOrder(OrderParams orderParams);
+    void saveOrder(OrderParams orderParams) throws JsonProcessingException;
 
 
 }

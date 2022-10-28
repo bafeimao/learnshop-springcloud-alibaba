@@ -4,7 +4,7 @@
 <mapper namespace="io.learn.shop.product.mapper.ProductMapper">
     <update id="updateProductStockById">
         update t_product
-        set t_pro_stock = t_pro_stock - #{count}
-        where id = # {id}
+        set t_product_stock = t_product_stock - #{count}
+        where id = #{id}
     </update>
 </mapper>
