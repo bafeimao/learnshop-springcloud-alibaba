@@ -7,18 +7,18 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @projectName: shop
- * @package: io.learn.shop.user
- * @className: UserStart
+ * @package: io.learn.shop
+ * @className: ProductStart
  * @author: ycd20
- * @description: start user service
- * @date: 2022/10/27 22:37
+ * @description: product service starter
+ * @date: 2022/10/28 7:04
  * @version: 1.0
  */
 @SpringBootApplication
+@MapperScan(value = {"io.learn.shop.product.mapper"})
 @EnableTransactionManagement(proxyTargetClass = true)
-@MapperScan(value = {"io.learn.shop.user.mapper"})
-public class UserStart {
+public class ProductStarter {
     public static void main(String[] args) {
-        SpringApplication.run(UserStart.class, args);
+        SpringApplication.run(ProductStarter.class, args);
     }
 }

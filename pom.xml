@@ -7,6 +7,8 @@
 		<module>shop-utils</module>
 		<module>shop-bean</module>
 		<module>shop-user</module>
+		<module>shop-product</module>
+		<module>shop-order</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
