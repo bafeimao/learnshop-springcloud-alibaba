@@ -5,7 +5,7 @@ import io.learn.shop.product.mapper.ProductMapper;
 import io.learn.shop.product.service.ProductService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @projectName: shop

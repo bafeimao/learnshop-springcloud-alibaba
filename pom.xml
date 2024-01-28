@@ -13,7 +13,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.13</version>
+		<version>3.0.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>io.learn.shop</groupId>
@@ -26,16 +26,16 @@
 		<maven.compiler.target>17</maven.compiler.target>
 		<java.version>17</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
-		<spring-cloud-alibaba.version>2.1.0.RELEASE</spring-cloud-alibaba.version>
-		<logback.version>1.1.7</logback.version>
-		<slf4j.version>1.7.21</slf4j.version>
+		<spring-cloud.version>2022.0.0</spring-cloud.version>
+		<spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>
+		<logback.version>1.4.14</logback.version>
+		<slf4j.version>2.1.0-alpha1</slf4j.version>
 		<common.logging>1.2</common.logging>
 		<fastjson.version>2.0.16</fastjson.version>
-		<mybatis.version>3.4.6</mybatis.version>
-		<mybatis.plus.version>3.5.2</mybatis.plus.version>
+		<mybatis.plus.version>3.5.5</mybatis.plus.version>
 		<mysql.jdbc.version>8.0.30</mysql.jdbc.version>
-		<druid.version>1.2.14</druid.version>
+		<druid.version>1.2.21</druid.version>
+		<guava.version>32.0.0-jre</guava.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -61,7 +61,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>2.6.13</version>
 				<configuration>
 					<skip>true</skip>
 				</configuration>

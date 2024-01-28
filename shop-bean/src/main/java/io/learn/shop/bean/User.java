@@ -29,7 +29,7 @@ public class User implements Serializable {
      */
     @TableId(value = "id", type = IdType.INPUT)
     @TableField(value = "id", fill = FieldFill.INSERT)
-    private long id;
+    private Long id;
 
     /**
      * username

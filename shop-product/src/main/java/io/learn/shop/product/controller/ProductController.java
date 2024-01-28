@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @projectName: shop
@@ -42,7 +42,6 @@ public class ProductController {
     public Result<Integer> updateCount(@PathVariable("pid") Long pid, @PathVariable("count") Integer count) {
         log.info("update product stock param is productId:{},count:{}", pid, count);
         int updateCount = service.updateProductStockById(count, pid);
-        Result<Integer> result = new Result<>(HttpCode.SUCCESS, "execute success", updateCount);
-        return result;
+        return new Result<>(HttpCode.SUCCESS, "execute success", updateCount);
     }
 }
