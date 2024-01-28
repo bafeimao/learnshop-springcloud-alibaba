@@ -29,9 +29,9 @@ import java.math.BigDecimal;
  * @date: 2022/10/28 7:59
  * @version: 1.0
  */
-@Service
+//@Service
 @Slf4j
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceV1Impl implements OrderService {
     @Resource
     private ObjectMapper mapper;
     @Resource
