@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class OrderController {
     @Resource
-    @Qualifier(value = "orderServiceV5Impl")
+    @Qualifier(value = "orderServiceV6")
     private OrderService orderService;
     @Resource
     private ObjectMapper objectMapper;
@@ -33,5 +33,17 @@ public class OrderController {
         log.info("submit order params:{}", objectMapper.writeValueAsString(orderParams));
         orderService.saveOrder(orderParams);
         return "success";
+    }
+
+    @GetMapping(value = "/concurrent_request")
+    public String concurrentRequest(){
+        log.info("测试业务在高并发场景下是否存在问题");
+        return "binghe";
+    }
+
+    @GetMapping(value = "/test_sentinel")
+    public String testSentinel(){
+        log.info("测试Sentinel");
+        return "sentinel";
     }
 }
