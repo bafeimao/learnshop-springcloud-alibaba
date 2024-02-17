@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class OrderController {
     @Resource
-    @Qualifier(value = "orderServiceV4Impl")
+    @Qualifier(value = "orderServiceV5Impl")
     private OrderService orderService;
     @Resource
     private ObjectMapper objectMapper;
