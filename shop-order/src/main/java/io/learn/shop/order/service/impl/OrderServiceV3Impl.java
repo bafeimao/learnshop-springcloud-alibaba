@@ -1,7 +1,7 @@
 package io.learn.shop.order.service.impl;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.learn.shop.bean.Order;
 import io.learn.shop.bean.OrderItem;
 import io.learn.shop.bean.Product;
@@ -12,57 +12,59 @@ import io.learn.shop.order.service.OrderService;
 import io.learn.shop.params.OrderParams;
 import io.learn.shop.utils.constants.HttpCode;
 import io.learn.shop.utils.response.Result;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
-import jakarta.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Random;
 
 /**
- * @projectName: shop
- * @package: io.learn.shop.order.service.impl
- * @className: OrderServiceImpl
- * @author: ycd20
- * @description: order service impl
- * @date: 2022/10/28 7:59
- * @version: 1.0
+ * @author YouChuande
  */
 @Service
 @Slf4j
-public class OrderServiceV1Impl implements OrderService {
+public class OrderServiceV3Impl implements OrderService {
+
     @Resource
-    private ObjectMapper mapper;
-    @Resource
-    private OrderMapper orderMapper;
-    @Resource
-    private OrderItemMapper orderItemMapper;
+    private DiscoveryClient discoveryClient;
+
     @Resource
     private RestTemplate restTemplate;
 
+    @Resource
+    private OrderMapper orderMapper;
+
+    @Resource
+    private OrderItemMapper orderItemMapper;
+
+    private final String userServer = "server-user";
+    private final String productServer = "server-product";
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveOrder(OrderParams orderParams) throws JsonProcessingException {
-        if (orderParams.isEmpty()) {
-            throw new RuntimeException("param exception: " + mapper.writeValueAsString(orderParams));
-        }
-        User user = restTemplate.getForObject("http://localhost:8060/user/get/" + orderParams.getUserId(), User.class);
+        String userUrl = getServiceUrl(userServer);
+        String productUrl = getServiceUrl(productServer);
+        User user = restTemplate.getForObject(userUrl + "/user/get/" + orderParams.getUserId(), User.class);
         if (user == null) {
-            throw new RuntimeException("can not get user information:" +
-                    mapper.writeValueAsString(orderParams));
+            throw new RuntimeException("can not get user information:" + JSONObject.toJSONString(orderParams));
         }
-        Product product = restTemplate.getForObject("http://localhost:8070/product/get/" +
-                orderParams.getProductId(), Product.class);
+        Product product = restTemplate.getForObject(productUrl + "/product/get/" + orderParams.getProductId(), Product.class);
         if (product == null) {
-            throw new RuntimeException("can not get product information:" +
-                    mapper.writeValueAsString(orderParams));
+            throw new RuntimeException("can not get product information:" + JSONObject.toJSONString(orderParams));
         }
         if (product.getProductStock() < orderParams.getCount()) {
             throw new RuntimeException("product stock less:" +
-                    mapper.writeValueAsString(orderParams));
+                    JSONObject.toJSONString(orderParams));
         }
+
         Order order = new Order();
         order.setAddress(user.getAddress());
         order.setPhone(user.getPhone());
@@ -78,12 +80,19 @@ public class OrderServiceV1Impl implements OrderService {
         orderItem.setProductName(product.getProductName());
         orderItem.setProductPrice(product.getProductPrice());
         orderItemMapper.insert(orderItem);
-
-        Result<Integer> result = restTemplate.getForObject("http://localhost:8070/product/update_count/" +
+        Result<Integer> result = restTemplate.getForObject(productUrl + "/product/update_count/" +
                 orderParams.getProductId() + "/" + orderParams.getCount(), Result.class);
         if (result.getCode() != HttpCode.SUCCESS) {
             throw new RuntimeException("stock minus failed");
         }
         log.info("stock minus success");
+    }
+
+    private String getServiceUrl(String serviceName) {
+        List<ServiceInstance> instances = discoveryClient.getInstances(serviceName);
+        var index = new Random().nextInt(instances.size());
+        ServiceInstance serviceInstance = instances.get(index);
+        log.info("负载均衡后的服务地址：{}",serviceInstance.getUri().toString());
+        return serviceInstance.getUri().toString();
     }
 }

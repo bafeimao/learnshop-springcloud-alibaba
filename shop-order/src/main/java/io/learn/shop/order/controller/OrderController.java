@@ -4,11 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.learn.shop.order.service.OrderService;
 import io.learn.shop.params.OrderParams;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import jakarta.annotation.Resource;
 
 /**
  * @projectName: shop
@@ -23,6 +23,7 @@ import jakarta.annotation.Resource;
 @RestController
 public class OrderController {
     @Resource
+    @Qualifier(value = "orderServiceV4Impl")
     private OrderService orderService;
     @Resource
     private ObjectMapper objectMapper;
